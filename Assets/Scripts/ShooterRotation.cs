@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShooterRotation : MonoBehaviour
 {
-    ShooterInput shooterInput;
+    private ShooterInput shooterInput;
 
     private void Awake()
     {
