@@ -18,7 +18,7 @@ public class ShooterShot : MonoBehaviour
 
     private float time;
 
-    private float timer = 0.3f;
+    private float timer = 0.1f;
 
     private void Awake()
     {
