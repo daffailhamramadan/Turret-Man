@@ -14,7 +14,7 @@ public class ShooterInput : MonoBehaviour
         return Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow);
     }
 
-    public bool Shoot()
+    public bool LeftMouse()
     {
         return Input.GetMouseButtonDown(0);
     }
