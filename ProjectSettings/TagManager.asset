@@ -7,6 +7,7 @@ TagManager:
   - Shooter
   - Bullet
   - Enemy
+  - Particle
   layers:
   - Default
   - TransparentFX

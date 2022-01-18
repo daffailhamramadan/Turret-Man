@@ -17,14 +17,6 @@ public class GameController : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    private void Update()
-    {
-        if(currentHealth <= 0)
-        {
-            Debug.Log("Game Over");
-        }
-    }
-
     public void AddScore(float score)
     {
         currentScore = currentScore + score;
