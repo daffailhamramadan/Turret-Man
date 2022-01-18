@@ -14,6 +14,8 @@ public class EnemyColor : MonoBehaviour
 
     [SerializeField] private float speed;
 
+    private int[] randomRotation = { 90, -90, 0, 180 };
+
     private GameObject colorEnemyPrefab;
 
     private void Start()
@@ -25,7 +27,7 @@ public class EnemyColor : MonoBehaviour
 
     private void RandomRotate()
     {
-        transform.Rotate(0f, 0f, -90f);
+        transform.Rotate(0f, 0f, randomRotation[Random.Range(0, 4)]);
     }
 
     private void EnemyColorAppear()
