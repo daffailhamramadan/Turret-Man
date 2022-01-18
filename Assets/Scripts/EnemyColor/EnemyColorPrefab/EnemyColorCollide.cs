@@ -20,7 +20,7 @@ public class EnemyColorCollide : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        if (collision.CompareTag("Bullet") && GameObject.FindGameObjectWithTag("Bullet").GetComponent<SpriteRenderer>().color == spriteRenderer.color)
+        if (collision.CompareTag("Bullet") && collision.gameObject.GetComponent<SpriteRenderer>().color == spriteRenderer.color)
         {
             Destroy(this.gameObject);
         }
