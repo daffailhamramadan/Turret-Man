@@ -8,6 +8,8 @@ public class EnemyColor : MonoBehaviour
 
     [SerializeField] private GameObject[] colorEnemyPrefabs;
 
+    [SerializeField] private Transform colorEnemyParent;
+
     private List<Vector2> enemyDirection = new List<Vector2>();
 
     [SerializeField] private float speed;
@@ -38,7 +40,7 @@ public class EnemyColor : MonoBehaviour
 
         for (int i = 0; i < colorEnemyPosition.Length; i++)
         {
-            colorEnemyPrefab = Instantiate(colorEnemyPrefabs[i], colorEnemyPosition[i].position, Quaternion.identity);
+            colorEnemyPrefab = Instantiate(colorEnemyPrefabs[i], colorEnemyPosition[i].position, Quaternion.identity, colorEnemyParent.transform);
 
             Rigidbody2D rigidbody = colorEnemyPrefab.GetComponent<Rigidbody2D>();
 
