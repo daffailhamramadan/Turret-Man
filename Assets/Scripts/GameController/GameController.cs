@@ -1,20 +1,70 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public float currentScore;
+    [HideInInspector] public float currentScore;
 
-    public float currentHealth;
+    [HideInInspector] public float currentHealth;
 
     private int maxHealth = 3;
 
+    public delegate void GameOverEvent();
+
+    public static event GameOverEvent GameOver;
+
+    public delegate void StartEvent();
+
+    public static event StartEvent StartGame;
+
+
+    public enum GameState
+    {
+        Start,
+
+        GamePlay,
+
+        GameOver
+    }
+
+    public GameState gameState;
+
     private void Start()
     {
-        currentScore = 0;
+        gameState = GameState.Start;
 
-        currentHealth = maxHealth;
+        if(gameState == GameState.Start)
+        {
+            Time.timeScale = 0f;
+
+            currentScore = 0;
+
+            currentHealth = maxHealth;
+        }
+        
+    }
+
+    private void Update()
+    {
+        if(currentHealth <= 0)
+        {
+            gameState = GameState.GameOver;
+        }
+
+        if (Input.GetMouseButtonDown(0) && gameState == GameState.Start)
+        {
+            StartGame?.Invoke();
+
+            gameState = GameState.GamePlay;
+        }
+
+        if(gameState == GameState.GameOver)
+        {
+            GameOver?.Invoke();
+        }
+
     }
 
     public void AddScore(float score)
@@ -27,5 +77,42 @@ public class GameController : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         
+    }
+
+    private void OnEnable()
+    {
+        GameOver += GameOverLogic;
+        StartGame += StartGameLogic;
+    }
+
+    private void OnDisable()
+    {
+        GameOver -= GameOverLogic;
+        StartGame -= StartGameLogic;
+    }
+
+    public void StartGameLogic()
+    {
+        Time.timeScale = 1f;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
+    public void GameOverLogic()
+    {
+        Time.timeScale = 0f;
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(0);
+            
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 }

@@ -48,7 +48,7 @@ public class EnemyColorCollide : MonoBehaviour
 
         if (collision.CompareTag("Bullet") && collision.gameObject.GetComponent<SpriteRenderer>().color == spriteRenderer.color)
         {
-            gameController.AddScore(1.25f);
+            gameController.AddScore(0.25f);
             
             for(int i = 0; i < particleSystem.Length; i++)
             {
@@ -62,7 +62,7 @@ public class EnemyColorCollide : MonoBehaviour
             Destroy(this.gameObject);
             
         }
-        else
+        else if(collision.CompareTag("Bullet") && collision.gameObject.GetComponent<SpriteRenderer>().color != spriteRenderer.color)
         {
             gameController.TakeDamage(0.25f); 
         }
