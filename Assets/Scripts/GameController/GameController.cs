@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
 
     public static event StartEvent StartGame;
 
+    public float HighScore;
 
     public enum GameState
     {
@@ -43,7 +44,7 @@ public class GameController : MonoBehaviour
 
             currentHealth = maxHealth;
         }
-        
+
     }
 
     private void Update()
@@ -60,10 +61,17 @@ public class GameController : MonoBehaviour
             gameState = GameState.GamePlay;
         }
 
+        if(Input.GetKeyDown(KeyCode.Escape) && gameState == GameState.GamePlay)
+        {
+            Application.Quit();
+        }
+
         if(gameState == GameState.GameOver)
         {
             GameOver?.Invoke();
         }
+
+        HighScore = PlayerPrefs.GetFloat("HighScore");
 
     }
 
@@ -103,6 +111,12 @@ public class GameController : MonoBehaviour
     public void GameOverLogic()
     {
         Time.timeScale = 0f;
+
+        if(PlayerPrefs.GetFloat("HighScore") < currentScore)
+        {
+            PlayerPrefs.SetFloat("HighScore", currentScore);
+        }  
+        
 
         if (Input.GetKeyDown(KeyCode.R))
         {

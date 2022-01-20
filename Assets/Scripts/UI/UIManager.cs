@@ -13,20 +13,34 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI gameOverText;
 
+    [SerializeField] private GameObject scoreText;
+
+    [SerializeField] private GameObject healthText;
+
     [SerializeField] private TextMeshProUGUI startText;
 
     [SerializeField] private TextMeshProUGUI clickAnywhereText;
 
     [SerializeField] private TextMeshProUGUI restartText;
 
+    [SerializeField] private TextMeshProUGUI highScoreTextNumber;
+
     [SerializeField] private GameObject gameOverPanel;
 
     [SerializeField] private GameObject startPanel;
+
+    [SerializeField] private GameObject highScoreText;
 
 
     private void Start()
     {
         gameOverPanel.SetActive(false);
+
+        scoreText.SetActive(false);
+
+        healthText.SetActive(false);
+
+        highScoreText.SetActive(true);
     }
 
     private void Update()
@@ -34,6 +48,8 @@ public class UIManager : MonoBehaviour
         scoreTextNumber.text  = gameController.currentScore.ToString();
 
         healthTextNumber.text = gameController.currentHealth.ToString();
+
+        highScoreTextNumber.text = "HighScore: " + gameController.HighScore.ToString();
     }
 
 
@@ -53,8 +69,16 @@ public class UIManager : MonoBehaviour
     public void GameStartUI()
     {
         startText.text = "";
+
         clickAnywhereText.text = "";
+
         startPanel.SetActive(false);
+
+        scoreText.SetActive(true);
+
+        healthText.SetActive(true);
+
+        highScoreText.SetActive(false);
 
     }
 
@@ -65,5 +89,11 @@ public class UIManager : MonoBehaviour
         restartText.text = "Click R to Restart or Click Esc to Quit ";
 
         gameOverPanel.SetActive(true);
+
+        scoreText.SetActive(false);
+
+        healthText.SetActive(false);
+
+        highScoreText.SetActive(true);
     }
 }
